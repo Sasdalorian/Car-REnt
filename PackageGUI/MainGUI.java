@@ -5,11 +5,6 @@ import java.awt.*;
 
 public class MainGUI extends JFrame {
 
-    private JTextField txtCedula, txtCliente, txtDias, txtPatente, txtMarca, txtModelo;
-    private JComboBox<String> comboVehiculo;
-    private JLabel lblResultado;
-    private JButton btnCalcular, btnLimpiar;
-
     public MainGUI() {
         setTitle("Sistema de Arriendo de Vehículos");
         setSize(500, 400);
@@ -28,93 +23,14 @@ public class MainGUI extends JFrame {
         panel.add(boton2);
         panel.add(boton3);
 
-    // PANEL DE CONTENIDO
+        // PANEL DE CONTENIDO
         JPanel panelContenido = new JPanel(new CardLayout());
 
-    // VISTAS
-        // VISTA 1
-        JPanel vista1 = new JPanel();
-        vista1.setLayout(new GridBagLayout());
-        vista1.setBackground(Color.WHITE);
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-
-        // TITULO
-        JLabel clientesT = new JLabel("CLIENTES");
-        clientesT.setFont(new Font("Arial", Font.BOLD, 16));
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.weighty = 0;
-        vista1.add(clientesT, gbc);
-
-        // CEDULA
-        JLabel cedulaC = new JLabel("Cedula:");
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        gbc.gridx = 0;
-        gbc.anchor = GridBagConstraints.EAST;
-        vista1.add(cedulaC, gbc);
-        // CAMPO CEDULA
-        gbc.gridx = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        vista1.add(new JTextField(15), gbc);
-
-        // NOMBRE
-        JLabel nombreC = new JLabel("Cedula:");
-        gbc.gridy = 2;
-        gbc.gridx = 0;
-        gbc.anchor = GridBagConstraints.EAST;
-        vista1.add(nombreC, gbc);
-        // CAMPO NOMBRE
-        gbc.gridx = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        vista1.add(new JTextField(15), gbc);
-
-        // VIGENTE
-        gbc.gridy = 3;
-        gbc.gridx = 0;
-        gbc.anchor = GridBagConstraints.EAST;
-        vista1.add(new JLabel("¿Vigente?"), gbc);
-        // CHECKBOX VIGENTE
-        gbc.gridx = 1;
-        gbc.anchor = GridBagConstraints.WEST;
-        JCheckBox vigente = new JCheckBox("Sí");
-        vista1.add(vigente, gbc);
-
-        // BOTON AGREGAR
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.weighty = 0;
-        JButton agregarCliente = new JButton("Agregar");
-        vista1.add(agregarCliente, gbc);
-
-        // ESPACIADOR PARA EMPUJAR TODO ARRIBA
-        gbc.gridy = 99;
-        gbc.weighty = 1;
-        vista1.add(Box.createVerticalGlue(), gbc);
-
-
-
-
-        // VISTA 2
-        JPanel vista2 = new JPanel();
-        JLabel arriendoCuotasT = new JLabel("ARRIENDO CON CUOTAS");
-        arriendoCuotasT.setFont(new Font("Arial", Font.BOLD, 16));
-        vista2.setBackground(Color.BLACK);
-        vista2.add(arriendoCuotasT);
-
-        // VISTA 3
-        JPanel vista3 = new JPanel();
-        JLabel PagarCuotasT = new JLabel("PAGAR CUOTAS DE ARRIENDOS");
-        PagarCuotasT.setFont(new Font("Arial", Font.BOLD, 16));
-        vista3.setBackground(Color.YELLOW);
-        vista3.add(PagarCuotasT);
+        //AGREGAR VISTAS A PANEL DE CONTENIDO
+        Vista1 vista1 = new Vista1();
+        Vista2 vista2 = new Vista2();
+        Vista3 vista3 = new Vista3();
 
         //AGREGAR VISTAS A PANEL DE CONTENIDO
         panelContenido.add(vista1, "PANEL1");
@@ -128,6 +44,8 @@ public class MainGUI extends JFrame {
 
         add(panel, BorderLayout.NORTH);
         add(panelContenido, BorderLayout.CENTER);
+        setLocationRelativeTo(null);
+        setVisible(true);
 
 //        add(new JLabel("Nombre del Cliente:"));
 //        txtCliente = new JTextField();
@@ -175,11 +93,11 @@ public class MainGUI extends JFrame {
 //            }
 //        });
 //        add(btnLimpiar);
-
-        setLocationRelativeTo(null);
-        setVisible(true);
     }
 
+    public static void main(String[] args) {
+        new MainGUI();
+    }
 //    private void calcularTotal() {
 //        try {
 //            String cliente = txtCliente.getText().trim();
