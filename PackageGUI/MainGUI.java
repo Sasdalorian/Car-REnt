@@ -28,14 +28,14 @@ public class MainGUI extends JFrame {
 
 
         //AGREGAR VISTAS A PANEL DE CONTENIDO
-        Vista1 vista1 = new Vista1();
-        Vista2 vista2 = new Vista2();
-        Vista3 vista3 = new Vista3();
+        VistaClientes vistaClientes = new VistaClientes();
+        VistaArriendos vistaArriendos = new VistaArriendos();
+        VistaPago vistaPago = new VistaPago();
 
         //AGREGAR VISTAS A PANEL DE CONTENIDO
-        panelContenido.add(vista1, "PANEL1");
-        panelContenido.add(vista2, "PANEL2");
-        panelContenido.add(vista3, "PANEL3");
+        panelContenido.add(vistaClientes, "PANEL1");
+        panelContenido.add(vistaArriendos, "PANEL2");
+        panelContenido.add(vistaPago, "PANEL3");
 
         CardLayout cl = (CardLayout) panelContenido.getLayout();
         boton1.addActionListener(e -> cl.show(panelContenido, "PANEL1"));

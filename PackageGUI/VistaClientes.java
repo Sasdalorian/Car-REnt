@@ -3,27 +3,26 @@ package PackageGUI;
 import javax.swing.*;
 import java.awt.*;
 
-public class Vista1 extends JPanel {
+public class VistaClientes extends JPanel {
     private JTextField txtCedula, txtNombre;
     private JCheckBox vigente;
 
-    public Vista1() {
+    public VistaClientes() {
         setLayout(new GridBagLayout());
-        setBackground(Color.WHITE);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Título
-        JLabel clientesT = new JLabel("CLIENTES");
-        clientesT.setFont(new Font("Arial", Font.BOLD, 16));
+        JLabel vistaClientesT = new JLabel("CLIENTES");
+        vistaClientesT.setFont(new Font("Arial", Font.BOLD, 16));
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.gridwidth = 1;
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.weighty = 0;
-        add(clientesT, gbc);
+        add(vistaClientesT, gbc);
 
         // Cedula
         JLabel cedulaC = new JLabel("Cedula:");
