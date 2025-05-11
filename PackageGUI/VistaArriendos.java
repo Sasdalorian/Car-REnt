@@ -9,7 +9,7 @@ public class VistaArriendos extends JPanel {
     private JTextField txtPrecio;
     private JTextField txtCantCuotas;
 
-    public VistaArriendos() {
+    public VistaArriendos(CardLayout cardLayout, JPanel panelContenido) {
         setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -62,6 +62,12 @@ public class VistaArriendos extends JPanel {
         gbc.gridwidth = 1;
         gbc.weightx = 1;
         add(irACliente, gbc);
+
+        // Cambio de VISTA para Agregar Cliente
+        irACliente.addActionListener(e -> {
+            System.out.println("Cambio a Agregar Cliente");
+            cardLayout.show(panelContenido, "PANEL1");
+        });
 
         // Fecha Arriendo (etiqueta + campo)
         JPanel panelFecha = new JPanel(new BorderLayout(5, 0));
@@ -125,7 +131,6 @@ public class VistaArriendos extends JPanel {
         // Crear JLabel vacío para el monto
         JLabel montoTotal = new JLabel("", SwingConstants.CENTER);
         panelMontoPagar.add(montoTotal, BorderLayout.CENTER);
-        // Agregar el panel al GridBagLayout
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.gridwidth = 1;

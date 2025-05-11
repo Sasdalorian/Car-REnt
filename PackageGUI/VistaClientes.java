@@ -7,7 +7,7 @@ public class VistaClientes extends JPanel {
     private JTextField txtCedula, txtNombre;
     private JCheckBox vigente;
 
-    public VistaClientes() {
+    public VistaClientes(CardLayout cardLayout, JPanel panelContenido) {
         setLayout(new GridBagLayout());
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -72,6 +72,13 @@ public class VistaClientes extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER;
         gbc.weighty = 0;
         add(agregarCliente, gbc);
+
+        // Cambio de VISTA para VistaArriendos
+        agregarCliente.addActionListener(e -> {
+            System.out.println("Cliente agregado");
+            System.out.println("Cambio a Vista Arriendos");
+            cardLayout.show(panelContenido, "PANEL2");
+        });
 
         // Espaciador para empujar todo arriba
         gbc.gridy = 99;

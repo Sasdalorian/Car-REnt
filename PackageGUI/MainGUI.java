@@ -13,23 +13,22 @@ public class MainGUI extends JFrame {
 
     // PANEL DE PESTAÑAS
         JPanel panel = new JPanel();
-        JButton boton1 = new JButton("Agregar Cliente");
-        boton1.setBounds(10, 10, 90, 30);
+
         JButton boton2 = new JButton("Arriendos con Cuotas");
         boton2.setBounds(110, 10, 90, 30);
         JButton boton3 = new JButton("Pagar Cuotas");
         boton3.setBounds(220, 10, 90, 30);
-        panel.add(boton1);
+
         panel.add(boton2);
         panel.add(boton3);
 
         // PANEL DE CONTENIDO
         JPanel panelContenido = new JPanel(new CardLayout());
-
+        CardLayout cl = (CardLayout) panelContenido.getLayout();
 
         //AGREGAR VISTAS A PANEL DE CONTENIDO
-        VistaClientes vistaClientes = new VistaClientes();
-        VistaArriendos vistaArriendos = new VistaArriendos();
+        VistaClientes vistaClientes = new VistaClientes(cl, panelContenido);
+        VistaArriendos vistaArriendos = new VistaArriendos(cl, panelContenido);
         VistaPago vistaPago = new VistaPago();
 
         //AGREGAR VISTAS A PANEL DE CONTENIDO
@@ -37,8 +36,7 @@ public class MainGUI extends JFrame {
         panelContenido.add(vistaArriendos, "PANEL2");
         panelContenido.add(vistaPago, "PANEL3");
 
-        CardLayout cl = (CardLayout) panelContenido.getLayout();
-        boton1.addActionListener(e -> cl.show(panelContenido, "PANEL1"));
+        // Cambios de Vista
         boton2.addActionListener(e -> cl.show(panelContenido, "PANEL2"));
         boton3.addActionListener(e -> cl.show(panelContenido, "PANEL3"));
 
