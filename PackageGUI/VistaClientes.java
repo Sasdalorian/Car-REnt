@@ -73,7 +73,7 @@ public class VistaClientes extends JPanel {
         gbc.weighty = 0;
         add(agregarCliente, gbc);
 
-        // Cambio de VISTA para VistaArriendos
+        // Accion Boton
         agregarCliente.addActionListener(e -> {
             System.out.println("Cliente agregado");
             System.out.println("Cambio a Vista Arriendos");

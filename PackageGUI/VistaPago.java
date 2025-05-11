@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class VistaPago extends JPanel {
-
     public VistaPago() {
         setLayout(new GridBagLayout());
 
@@ -50,12 +49,20 @@ public class VistaPago extends JPanel {
         // FALTA CODE
 
         // Boton Mostrar Arriendos Seleccionados
-        JButton mostrarPagosArriendo = new JButton("Mostrar Pagos Arriendo Seleccionado");
+        JButton mostrarPagosArriendo = new JButton("Mostrar Pagos Arriendo Seleccionad \uD83E\uDC83");
         gbc.gridx = 1;
         gbc.weightx = 0.4; // Un poco más ancho si quieres
         add(mostrarPagosArriendo, gbc);
+        // Accion Boton
+        mostrarPagosArriendo.addActionListener(e -> {
+            System.out.println("Mostrar Arriendo");
+        });
 
-        //
+        // Cuadro para mostrar autos arrendados por el Cliente
+        // Falta CODE
+
+        // Cuadro para mostrar cuotas
+        // FALTA CODE
 
         // Espaciador para empujar todo arriba
         gbc.gridy = 99;

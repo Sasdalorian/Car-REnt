@@ -62,8 +62,7 @@ public class VistaArriendos extends JPanel {
         gbc.gridwidth = 1;
         gbc.weightx = 1;
         add(irACliente, gbc);
-
-        // Cambio de VISTA para Agregar Cliente
+        // Accion Boton
         irACliente.addActionListener(e -> {
             System.out.println("Cambio a Agregar Cliente");
             cardLayout.show(panelContenido, "PANEL1");
@@ -140,12 +139,16 @@ public class VistaArriendos extends JPanel {
         add(panelMontoPagar, gbc);
 
         // Guardar arriendo y mostrar cuotas
-        JButton GuardaryMostrar = new JButton("Guardar arriendo y mostrar cuotas >>");
+        JButton guardaryMostrar = new JButton("Guardar arriendo y mostrar cuotas >>");
         gbc.gridx = 0;
         gbc.gridy = 8;
         gbc.gridwidth = 1;
         gbc.weightx = 1;
-        add(GuardaryMostrar, gbc);
+        add(guardaryMostrar, gbc);
+        // Accion Boton
+        guardaryMostrar.addActionListener(e -> {
+            System.out.println("Guardar arriendo y mostrar cuotas");
+        });
 
         // Cuotas a pagar
         JLabel cuotasApagar = new JLabel("CUOTAS A PAGAR", SwingConstants.CENTER);
@@ -162,7 +165,11 @@ public class VistaArriendos extends JPanel {
         gbc.gridy = 4;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(pagarPCuota, gbc);
-
+        // Accion Boton
+        pagarPCuota.addActionListener(e -> {
+            System.out.println("Cambio de Vista a Pagar");
+            cardLayout.show(panelContenido, "PANEL3");
+        });
 
         // Espaciador para empujar todo arriba
         gbc.gridy = 99;
