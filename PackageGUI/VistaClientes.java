@@ -75,9 +75,17 @@ public class VistaClientes extends JPanel {
 
         // Accion Boton
         agregarCliente.addActionListener(e -> {
-            System.out.println("Cliente agregado");
-            System.out.println("Cambio a Vista Arriendos");
-            cardLayout.show(panelContenido, "PANEL2");
+            if (!txtNombre.getText().trim().isEmpty() && !txtCedula.getText().trim().isEmpty()) {
+                System.out.println(txtNombre.getText() + " | " + txtCedula.getText() + "| Vigente: " + vigente.isSelected());
+                txtNombre.setText("");
+                txtCedula.setText("");
+                vigente.setSelected(false);
+                System.out.println("Cambio a Vista Arriendos");
+                cardLayout.show(panelContenido, "PANEL2");
+            } else {
+                System.out.println("Falta llenar los campos");
+            }
+
         });
 
         // Espaciador para empujar todo arriba
