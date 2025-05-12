@@ -1,40 +1,78 @@
+
 //Model
 public class Arriendo {
-    private String cliente;
+    private int numArriendo; // Agregado según el diagrama
+    private Cliente cliente;  // Modificado para usar la clase Cliente
     private Vehiculo vehiculo;
-    private int dias;
+    private int diasArriendo; // Renombrado de dias a diasArriendo
+    private Date fechaArriendo; // Agregado según el diagrama
 
-    public Arriendo(String cliente, Vehiculo vehiculo, int dias) {
+    // Constructor modificado para usar Cliente
+    public Arriendo(int numArriendo, int diasArriendo, Cliente cliente, Vehiculo vehiculo, Date fechaArriendo) {
+        this.numArriendo = numArriendo;
+        this.diasArriendo = diasArriendo;
         this.cliente = cliente;
         this.vehiculo = vehiculo;
-        this.dias = dias;
+        this.fechaArriendo = fechaArriendo;
     }
 
+    // Método compatible con el código existente
     public int calcularTotal() {
-        return vehiculo.getPrecioPorDia() * dias;
+        return obtenerMontoAPagar(vehiculo.getPrecioPorDia());
     }
 
-    public String getCliente() {
+    // Métodos según el diagrama
+    public double obtenerMontoAPagar(int precioDiario) {
+        return diasArriendo * precioDiario;
+    }
+
+    public boolean evaluarArriendo() {
+        return cliente.isVigente() && vehiculo.getCondicion() == 'D';
+    }
+
+    // Getters y setters
+    public int getNumArriendo() {
+        return numArriendo;
+    }
+
+    public void setNumArriendo(int numArriendo) {
+        this.numArriendo = numArriendo;
+    }
+
+    public Date getFechaArriendo() {
+        return fechaArriendo;
+    }
+
+    public void setFechaArriendo(Date fechaArriendo) {
+        this.fechaArriendo = fechaArriendo;
+    }
+
+    public Cliente getCliente() {
         return cliente;
+    }
+
+    public String getClienteNombre() {
+        return cliente != null ? cliente.getNombre() : "";
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
 
-    public int getDias() {
-        return dias;
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
-    }
-
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
 
-    public void setDias(int dias) {
-        this.dias = dias;
+    public int getDiasArriendo() {
+        return diasArriendo;
     }
+
+    public void setDiasArriendo(int diasArriendo) {
+        this.diasArriendo = diasArriendo;
+    }
+
 }
