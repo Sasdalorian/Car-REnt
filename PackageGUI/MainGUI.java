@@ -68,6 +68,7 @@ public class MainGUI extends JFrame {
 //                vehiculo = new Furgon(patente, modelo, marca);
 //            }
 //
+//            Cliente cliente = new Cliente("123456789", "Juan Perez", true);
 //            Arriendo arriendo = new Arriendo(cliente, vehiculo, dias);
 //            lblResultado.setText("$" + arriendo.calcularTotal());
 //            guardarArriendo(arriendo, "fichaArriendo.txt");
@@ -90,13 +91,13 @@ public class MainGUI extends JFrame {
 //    public static void guardarArriendo(Arriendo arriendo, String nombreArchivo) {
 //        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
 //            writer.write("Arriendo:\n");
-//            writer.write("-Cliente: " + arriendo.getCliente() + "\n");
+//            writer.write("-Cliente: " + arriendo.getClienteNombre() + "\n");
 //            writer.write("-Tipo de Vehiculo: " + arriendo.getVehiculo().getTipo() + "\n");
 //            writer.write("-Marca: " + arriendo.getVehiculo().getMarca() + "\n");
 //            writer.write("-Modelo: " + arriendo.getVehiculo().getModelo() + "\n");
 //            writer.write("-Patente: " + arriendo.getVehiculo().getPatente() + "\n");
 //            writer.write("-Precio por dia : " + arriendo.getVehiculo().getPrecioPorDia() + "\n");
-//            writer.write("-Dias de Arriendo " + arriendo.getDias() + "\n");
+//            writer.write("-Dias de Arriendo " + arriendo.getDiasArriendo() + "\n");
 //            writer.write("-Precio Total " + arriendo.calcularTotal() + "\n");
 //            System.out.println("Datos guardados en " + nombreArchivo);
 //        } catch (Exception e) {
