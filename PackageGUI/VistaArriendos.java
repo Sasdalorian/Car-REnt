@@ -9,6 +9,7 @@ public class VistaArriendos extends JPanel {
     private JTextField txtFechaArriendo;
     private JTextField txtDias;
     private JTextField txtCantCuotas;
+    private JLabel montoPagar;
     private ArrayList<Vehiculo> vehiculos;
     private JComboBox<String> seleccionarCliente;
     private JComboBox<String> seleccionarVehiculo;
@@ -113,8 +114,8 @@ public class VistaArriendos extends JPanel {
         // Monto a Pagar
         JPanel panelMontoPagar = new JPanel(new BorderLayout(5, 0));
         panelMontoPagar.add(new JLabel("Monto a Pagar:"), BorderLayout.WEST);
-        JLabel montoTotal = new JLabel("", SwingConstants.CENTER);
-        panelMontoPagar.add(montoTotal, BorderLayout.CENTER);
+        JLabel montoPagar = new JLabel("");
+        panelMontoPagar.add(montoPagar, BorderLayout.EAST);
 
         gbc.gridy = 7;
         add(panelMontoPagar, gbc);
@@ -142,13 +143,9 @@ public class VistaArriendos extends JPanel {
             System.out.println("Cambio de Vista a Pagar");
             cardLayout.show(panelContenido, "PANEL3");
         });
-
-        // Espaciador
-        gbc.gridy = 99;
-        gbc.weighty = 1;
-        add(Box.createVerticalGlue(), gbc);
     }
 
+    // Actualizar clientes de la lista
     public void actualizarClientes() {
         seleccionarCliente.removeAllItems();
         seleccionarCliente.addItem("Seleccionar Cliente");
@@ -159,6 +156,7 @@ public class VistaArriendos extends JPanel {
         }
     }
 
+    // Actualizar vehiculos de la lista
     public void actualizarVehiculo() {
         seleccionarVehiculo.removeAllItems();
         seleccionarVehiculo.addItem("Seleccionar Vehículo");
