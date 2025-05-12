@@ -22,21 +22,21 @@ public class MainGUI extends JFrame {
         panel.add(boton2);
         panel.add(boton3);
 
-        // PANEL DE CONTENIDO
+    // PANEL DE CONTENIDO
         JPanel panelContenido = new JPanel(new CardLayout());
         CardLayout cl = (CardLayout) panelContenido.getLayout();
 
-        //AGREGAR VISTAS A PANEL DE CONTENIDO
+    //AGREGAR VISTAS A PANEL DE CONTENIDO
         VistaClientes vistaClientes = new VistaClientes(cl, panelContenido);
         VistaArriendos vistaArriendos = new VistaArriendos(cl, panelContenido);
         VistaPago vistaPago = new VistaPago();
 
-        //AGREGAR VISTAS A PANEL DE CONTENIDO
+    //AGREGAR VISTAS A PANEL DE CONTENIDO
         panelContenido.add(vistaClientes, "PANEL1");
         panelContenido.add(vistaArriendos, "PANEL2");
         panelContenido.add(vistaPago, "PANEL3");
 
-        // Cambios de Vista
+    // Cambios de Vista
         boton2.addActionListener(e -> cl.show(panelContenido, "PANEL2"));
         boton3.addActionListener(e -> cl.show(panelContenido, "PANEL3"));
 
@@ -45,52 +45,6 @@ public class MainGUI extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-//        add(new JLabel("Nombre del Cliente:"));
-//        txtCliente = new JTextField();
-//        add(txtCliente);
-//
-//        add(new JLabel("Marca del Vehículo:"));
-//        txtMarca = new JTextField();
-//        add(txtMarca);
-//
-//        add(new JLabel("Modelo del Vehículo:"));
-//        txtModelo = new JTextField();
-//        add(txtModelo);
-//
-//        add(new JLabel("Patente del Vehículo:"));
-//        txtPatente = new JTextField();
-//        add(txtPatente);
-//
-//        add(new JLabel("Tipo de Vehículo:"));
-//        String[] vehiculos = {"Auto", "Camioneta", "Furgón"};
-//        comboVehiculo = new JComboBox<>(vehiculos);
-//        add(comboVehiculo);
-//
-//        add(new JLabel("Días de Arriendo:"));
-//        txtDias = new JTextField();
-//        add(txtDias);
-//
-//        add(new JLabel("Total a Pagar:"));
-//        lblResultado = new JLabel("");
-//        add(lblResultado);
-
-//        btnCalcular = new JButton("Calcular total");
-//        btnCalcular.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//
-//                calcularTotal();
-//            }
-//        });
-//        add(btnCalcular);
-//
-//        btnLimpiar = new JButton("Limpiar");
-//        btnLimpiar.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//
-//                limpiarCampos();
-//            }
-//        });
-//        add(btnLimpiar);
     }
 
     public static void main(String[] args) {

@@ -1,5 +1,8 @@
 package PackageGUI;
 
+import Modelo.Cliente;
+import Modelo.Main;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -76,16 +79,27 @@ public class VistaClientes extends JPanel {
         // Accion Boton
         agregarCliente.addActionListener(e -> {
             if (!txtNombre.getText().trim().isEmpty() && !txtCedula.getText().trim().isEmpty()) {
-                System.out.println(txtNombre.getText() + " | " + txtCedula.getText() + "| Vigente: " + vigente.isSelected());
+
+                Cliente nuevo = new Cliente(txtCedula.getText(), txtNombre.getText(), vigente.isSelected());
+                System.out.println("Cliente agregado:");
+                System.out.println(nuevo);
+
+                //Agregar a la lista Clientes
+                Main.getClientes().add(nuevo);
+                //Actualizar JComboBox VistaArriendos
+                ((VistaArriendos) panelContenido.getComponent(1)).actualizarClientes();
+
+                //Actualizar TextField
                 txtNombre.setText("");
                 txtCedula.setText("");
                 vigente.setSelected(false);
-                System.out.println("Cambio a Vista Arriendos");
+
+                //Cambio de Panel
                 cardLayout.show(panelContenido, "PANEL2");
+                System.out.println("Cambio a Vista Arriendos");
             } else {
                 System.out.println("Falta llenar los campos");
             }
-
         });
 
         // Espaciador para empujar todo arriba

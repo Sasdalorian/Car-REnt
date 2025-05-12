@@ -1,9 +1,0 @@
-Arriendo:
--Cliente: 76565
--Tipo de Vehiculo: Furgón
--Marca: 765765
--Modelo: 765765
--Patente: 65765765765
--Precio por dia : 40000
--Dias de Arriendo 765756
--Precio Total 565468928
