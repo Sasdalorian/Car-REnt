@@ -88,6 +88,7 @@ public class VistaClientes extends JPanel {
                 Main.getClientes().add(nuevo);
                 //Actualizar JComboBox VistaArriendos
                 ((VistaArriendos) panelContenido.getComponent(1)).actualizarClientes();
+                ((VistaPago) panelContenido.getComponent(2)).actualizarClientes();
 
                 //Actualizar TextField
                 txtNombre.setText("");
