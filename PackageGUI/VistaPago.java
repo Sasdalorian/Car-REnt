@@ -1,14 +1,20 @@
 package PackageGUI;
 
+import Modelo.Arriendo;
 import Modelo.Cliente;
+import Modelo.CuotaArriendo;
 import Modelo.Main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class VistaPago extends JPanel {
     private JComboBox<String> seleccionarCliente;
+    private JComboBox<String> seleccionarArriendo; // NUEVO
+    private JTextArea areaCuotas; // NUEVO
+    private JPanel panelCuotas;
 
     public VistaPago() {
         setLayout(new GridBagLayout());
@@ -30,8 +36,6 @@ public class VistaPago extends JPanel {
         // Seleccionar Cliente
         seleccionarCliente = new JComboBox<>();
         actualizarClientes();
-
-        // EJEMPLO
         gbc.gridy = 1;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
@@ -40,47 +44,159 @@ public class VistaPago extends JPanel {
         add(seleccionarCliente, gbc);
 
         // Seleccionar arriendo
-        JLabel seleccionarArriendo = new JLabel("Seleccionar Arriendo");
+        JLabel seleccionarArriendoLabel = new JLabel("Seleccionar Arriendo");
         gbc.gridy = 2;
         gbc.gridx = 0;
         gbc.gridwidth = 1;
         gbc.weightx = 0.2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        add(seleccionarArriendoLabel, gbc);
+
+        seleccionarArriendo = new JComboBox<>(); // NUEVO
+        gbc.gridx = 1;
+        gbc.weightx = 0.4;
         add(seleccionarArriendo, gbc);
 
-        // Cuadro para seleccionar Arriendos
-        // FALTA CODE
-
-        // Boton Mostrar Arriendos Seleccionados
-        JButton mostrarPagosArriendo = new JButton("Mostrar Pagos Arriendo Seleccionad \uD83E\uDC83");
-        gbc.gridx = 1;
-        gbc.weightx = 0.4; // Un poco más ancho si quieres
+        // Botón Mostrar Cuotas
+        JButton mostrarPagosArriendo = new JButton("Mostrar Pagos Arriendo Seleccionado 💃");
+        gbc.gridy = 3;
+        gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        gbc.weightx = 1;
         add(mostrarPagosArriendo, gbc);
-        // Accion Boton
-        mostrarPagosArriendo.addActionListener(e -> {
-            System.out.println("Mostrar Arriendo");
-        });
 
-        // Cuadro para mostrar autos arrendados por el Cliente
-        // Falta CODE
-
-        // Cuadro para mostrar cuotas
-        // FALTA CODE
-
-        // Espaciador para empujar todo arriba
-        gbc.gridy = 99;
+        // Panel para mostrar cuotas como checkboxes
+        panelCuotas = new JPanel();
+        panelCuotas.setLayout(new BoxLayout(panelCuotas, BoxLayout.Y_AXIS));
+        JScrollPane scroll = new JScrollPane(panelCuotas);
+        scroll.setPreferredSize(new Dimension(400, 200));
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.BOTH;
         gbc.weighty = 1;
-        add(Box.createVerticalGlue(), gbc);
+        add(scroll, gbc);
+
+
+        // Cuadro para pagar cuotas
+        JButton PagarCuotasArriendos = new JButton("Pagar Cuotas de arriendo");
+        gbc.gridy = 5;
+        gbc.gridx = 0;
+        gbc.gridwidth = 2;
+        gbc.weightx = 1;
+        add(PagarCuotasArriendos, gbc);
+        PagarCuotasArriendos.addActionListener(e -> pagarCuotas());
+
+        // Evento para botón
+        mostrarPagosArriendo.addActionListener(e -> MostrarCuotas());
+
+        // Evento para actualizar arriendos al cambiar cliente
+        seleccionarCliente.addActionListener(e -> actualizarArriendos());
+    }
+    // Pagar cuotas de arriendos
+    private ArrayList<JCheckBox> checkBoxesCuotas = new ArrayList<>();
+    private void pagarCuotas() {
+
+        String clienteNombre = (String) seleccionarCliente.getSelectedItem();
+        int arriendoIndex = seleccionarArriendo.getSelectedIndex();
+
+        if (clienteNombre == null || arriendoIndex < 0) {
+            JOptionPane.showMessageDialog(this, "Seleccione un cliente y un arriendo válido.");
+            return;
+        }
+
+        Cliente cliente = buscarClientePorNombre(clienteNombre);
+        if (cliente == null) return;
+
+        Arriendo arriendo = cliente.getArriendos().get(arriendoIndex);
+        ArrayList<CuotaArriendo> cuotas = arriendo.getCuotas();
+
+        boolean pagadoAlMenosUno = false;
+
+        for (int i = 0; i < checkBoxesCuotas.size(); i++) {
+            JCheckBox check = checkBoxesCuotas.get(i);
+            CuotaArriendo cuota = cuotas.get(i);
+
+            if (check.isSelected() && !cuota.isPagada()) {
+                cuota.setPagada(true);
+                pagadoAlMenosUno = true;
+            }
+        }
+
+        if (pagadoAlMenosUno) {
+            JOptionPane.showMessageDialog(this, "Cuotas seleccionadas pagadas exitosamente.");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se seleccionaron nuevas cuotas para pagar.");
+        }
+
+        MostrarCuotas(); // Refrescar panel con estado actualizado
+
     }
 
-    // Actualizar clientes de la lista
+
+
+    // Cargar clientes al ComboBox
     public void actualizarClientes() {
         seleccionarCliente.removeAllItems();
         seleccionarCliente.addItem("Seleccionar Cliente");
-
-        ArrayList<Cliente> clientes = Main.getClientes();
-        for (Cliente c : clientes) {
+        for (Cliente c : Main.getClientes()) {
             seleccionarCliente.addItem(c.getNombre());
         }
+    }
+
+    // NUEVO: Cargar arriendos del cliente seleccionado
+    private void actualizarArriendos() {
+        seleccionarArriendo.removeAllItems();
+        String nombreSeleccionado = (String) seleccionarCliente.getSelectedItem();
+        if (nombreSeleccionado == null || nombreSeleccionado.equals("Seleccionar Cliente")) return;
+
+        Cliente cliente = buscarClientePorNombre(nombreSeleccionado);
+        if (cliente != null) {
+            for (Arriendo arriendo : cliente.getArriendos()) {
+                seleccionarArriendo.addItem("Vehículo: " + arriendo.getVehiculo().getPatente());
+            }
+        }
+    }
+
+    // NUEVO: Mostrar cuotas del arriendo seleccionado
+    private void MostrarCuotas() {
+        int arriendoIndex = seleccionarArriendo.getSelectedIndex();
+        panelCuotas.removeAll();
+
+        String clienteNombre = (String) seleccionarCliente.getSelectedItem();
+        if (clienteNombre == null || arriendoIndex < 0) {
+            panelCuotas.add(new JLabel("Seleccione Cliente y un arriendo válido."));
+            panelCuotas.revalidate();
+            panelCuotas.repaint();
+            return;
+        }
+
+        Cliente cliente = buscarClientePorNombre(clienteNombre);
+        if (cliente == null) return; // ✅ Solo se detiene si no encuentra el cliente
+
+        Arriendo arriendo = cliente.getArriendos().get(arriendoIndex);
+        ArrayList<CuotaArriendo> cuotas = arriendo.getCuotas();
+
+        for (CuotaArriendo cuota : cuotas) {
+            JCheckBox check = new JCheckBox("Monto: $" + cuota.getValorCuota() +
+                    " | Pagada: " + (cuota.isPagada() ? "Sí" : "No"));
+            check.setSelected(cuota.isPagada());
+            check.setEnabled(!cuota.isPagada());
+            checkBoxesCuotas.add(check); // Guardar las cuotas
+            panelCuotas.add(check);
+        }
+
+        panelCuotas.revalidate();
+        panelCuotas.repaint();
+    }
+
+
+    // Buscar cliente por nombre (recomendable usar RUT en vez de nombre si hay ambigüedad)
+    private Cliente buscarClientePorNombre(String nombre) {
+        for (Cliente c : Main.getClientes()) {
+            if (c.getNombre().equals(nombre)) {
+                return c;
+            }
+        }
+        return null;
     }
 }

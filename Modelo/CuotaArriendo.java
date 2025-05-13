@@ -51,7 +51,7 @@ public class CuotaArriendo {
         }
         return false;
     }
-    
+
     @Override
     public String toString() {
         return "Cuota #" + numCuota + " - Valor: $" + valorCuota + " - " + (pagada ? "Pagada" : "Pendiente");

@@ -3,43 +3,59 @@ package Modelo;
 import PackageGUI.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Main {
-    // Hacer que clientes y vehiculos sean variables estáticas de la clase Main
-    private static ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-    private static ArrayList<Vehiculo> vehiculos = new ArrayList<Vehiculo>();
+    // Listas globales de clientes y vehículos
+    private static ArrayList<Cliente> clientes = new ArrayList<>();
+    private static ArrayList<Vehiculo> vehiculos = new ArrayList<>();
 
     public static void main(String[] args) {
-        // CREACION DE CLIENTES
-        clientes.add(new Cliente("12345678-9", "Diana", true));
-        clientes.add(new Cliente("98765432-1", "Guts", false));
-        clientes.add(new Cliente("12378945-6", "Obi Wan", true));
+        // CREACIÓN DE CLIENTES
+        Cliente diana = new Cliente("12345678-9", "Diana", true);
+        Cliente guts = new Cliente("98765432-1", "Guts", false);
+        Cliente obiWan = new Cliente("12378945-6", "Obi Wan", true);
+
+        clientes.add(diana);
+        clientes.add(guts);
+        clientes.add(obiWan);
 
         System.out.println("CLIENTES REGISTRADOS");
         for (Cliente c : clientes) {
             System.out.println(c);
         }
 
-        // CREACION DE VEHICULOS Y LISTA
-        vehiculos.add(new Auto("ABC123", "Modelo1", "Marca1"));
-        vehiculos.add(new Furgon("DEF456", "Modelo2", "Marca2"));
-        vehiculos.add(new Camioneta("DEF789", "Modelo3", "Marca3"));
+        // CREACIÓN DE VEHÍCULOS
+        Auto auto1 = new Auto("ABC123", "Modelo1", "Marca1");
+        Furgon furgon1 = new Furgon("DEF456", "Modelo2", "Marca2");
+        Camioneta cam1 = new Camioneta("DEF789", "Modelo3", "Marca3");
 
-        System.out.println("\n VEHICULOS REGISTRADOS");
+        vehiculos.add(auto1);
+        vehiculos.add(furgon1);
+        vehiculos.add(cam1);
+
+        System.out.println("\nVEHÍCULOS REGISTRADOS");
         for (Vehiculo v : vehiculos) {
             System.out.println(v);
         }
 
-        // Inicializar GUI
+        // ARRIENDO PARA OBI WAN CON CUOTAS
+        Arriendo arriendo = new Arriendo(1, 5, obiWan, auto1, new Date());
+
+        arriendo.agregarCuota(new CuotaArriendo(1, 20000, false));
+        arriendo.agregarCuota(new CuotaArriendo(2, 20000, false));
+
+        obiWan.agregarArriendo(arriendo);
+
+        // INICIALIZAR INTERFAZ GRÁFICA
         new MainGUI();
     }
 
-    // Getter para obtener la lista de clientes
+    // Métodos públicos para acceder desde otras clases
     public static ArrayList<Cliente> getClientes() {
         return clientes;
     }
 
-    // Getter para obtener la lista de vehículos
     public static ArrayList<Vehiculo> getVehiculos() {
         return vehiculos;
     }
