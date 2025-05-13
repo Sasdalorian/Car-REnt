@@ -28,7 +28,7 @@ public class Main {
         // CREACIÓN DE VEHÍCULOS
         Auto auto1 = new Auto("ABC123", "Modelo1", "Marca1");
         Furgon furgon1 = new Furgon("DEF456", "Modelo2", "Marca2");
-        Camioneta cam1 = new Camioneta("DEF789", "Modelo3", "Marca3");
+        Camioneta cam1 = new Camioneta("GHI789", "Modelo3", "Marca3");
 
         vehiculos.add(auto1);
         vehiculos.add(furgon1);

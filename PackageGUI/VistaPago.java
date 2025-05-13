@@ -92,8 +92,24 @@ public class VistaPago extends JPanel {
         // Evento para actualizar arriendos al cambiar cliente
         seleccionarCliente.addActionListener(e -> actualizarArriendos());
     }
+
+    //Sincorinizacion de clases
+    private static class CheckboxCuota {
+        JCheckBox checkBox;
+        CuotaArriendo cuota;
+
+        CheckboxCuota(JCheckBox checkBox, CuotaArriendo cuota) {
+            this.checkBox = checkBox;
+            this.cuota = cuota;
+        }
+    }
+
+
+
+
     // Pagar cuotas de arriendos
-    private ArrayList<JCheckBox> checkBoxesCuotas = new ArrayList<>();
+    private ArrayList<CheckboxCuota> checkboxCuotas = new ArrayList<>();
+    private ArrayList<CheckboxCuota> checkBoxesCuotas = new ArrayList<>();
     private void pagarCuotas() {
 
         String clienteNombre = (String) seleccionarCliente.getSelectedItem();
@@ -112,15 +128,13 @@ public class VistaPago extends JPanel {
 
         boolean pagadoAlMenosUno = false;
 
-        for (int i = 0; i < checkBoxesCuotas.size(); i++) {
-            JCheckBox check = checkBoxesCuotas.get(i);
-            CuotaArriendo cuota = cuotas.get(i);
-
-            if (check.isSelected() && !cuota.isPagada()) {
-                cuota.setPagada(true);
+        for (CheckboxCuota item : checkboxCuotas) {
+            if (item.checkBox.isSelected() && !item.cuota.isPagada()) {
+                item.cuota.setPagada(true);
                 pagadoAlMenosUno = true;
             }
         }
+
 
         if (pagadoAlMenosUno) {
             JOptionPane.showMessageDialog(this, "Cuotas seleccionadas pagadas exitosamente.");
@@ -176,12 +190,16 @@ public class VistaPago extends JPanel {
         Arriendo arriendo = cliente.getArriendos().get(arriendoIndex);
         ArrayList<CuotaArriendo> cuotas = arriendo.getCuotas();
 
+        checkboxCuotas.clear(); // En lugar de checkBoxesCuotas.clear()
+
         for (CuotaArriendo cuota : cuotas) {
+            boolean pagada = cuota.isPagada();
             JCheckBox check = new JCheckBox("Monto: $" + cuota.getValorCuota() +
-                    " | Pagada: " + (cuota.isPagada() ? "Sí" : "No"));
-            check.setSelected(cuota.isPagada());
-            check.setEnabled(!cuota.isPagada());
-            checkBoxesCuotas.add(check); // Guardar las cuotas
+                    " | Pagada: " + (pagada ? "Sí" : "No"));
+            check.setSelected(pagada);
+            check.setEnabled(!pagada); // Solo seleccionables si no están pagadas
+
+            checkboxCuotas.add(new CheckboxCuota(check, cuota)); // Enlaza cuota
             panelCuotas.add(check);
         }
 

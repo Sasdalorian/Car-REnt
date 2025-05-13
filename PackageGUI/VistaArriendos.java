@@ -92,7 +92,7 @@ public class VistaArriendos extends JPanel {
         // Monto a pagar
         JPanel panelMontoPagar = new JPanel(new BorderLayout(5, 0));
         montoPagar = new JLabel("");
-        panelMontoPagar.add(new JLabel("Monto a Pagar:"), BorderLayout.WEST);
+        panelMontoPagar.add(new JLabel("Monto Total a Pagar:"), BorderLayout.WEST);
         panelMontoPagar.add(montoPagar, BorderLayout.EAST);
         gbc.gridy = 7;
         add(panelMontoPagar, gbc);
@@ -143,7 +143,8 @@ public class VistaArriendos extends JPanel {
                 montoPagar.setText("$" + total);
                 JOptionPane.showMessageDialog(this,
                         "Arriendo registrado con " + cantCtas +
-                                " cuotas.\nTotal a pagar: $" + total);
+                                " cuotas.\nTotal a pagar: $" + total +
+                                " \n Valor de cuotas a pagar: $" + valorCua);
 
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this,
