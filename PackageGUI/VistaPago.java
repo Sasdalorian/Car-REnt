@@ -52,7 +52,7 @@ public class VistaPago extends JPanel {
         // FALTA CODE
 
         // Boton Mostrar Arriendos Seleccionados
-        JButton mostrarPagosArriendo = new JButton("Mostrar Pagos Arriendo Seleccionad \uD83E\uDC83");
+        JButton mostrarPagosArriendo = new JButton("Mostrar Pagos Arriendo Seleccionado \uD83E\uDC83");
         gbc.gridx = 1;
         gbc.weightx = 0.4; // Un poco más ancho si quieres
         add(mostrarPagosArriendo, gbc);
