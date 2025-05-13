@@ -1,9 +1,15 @@
 package PackageGUI;
 
+import Modelo.Cliente;
+import Modelo.Main;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class VistaPago extends JPanel {
+    private JComboBox<String> seleccionarCliente;
+
     public VistaPago() {
         setLayout(new GridBagLayout());
 
@@ -18,18 +24,14 @@ public class VistaPago extends JPanel {
         gbc.gridy = 0;
         gbc.gridwidth = 2;
         gbc.weightx = 1;
-        gbc.insets = new Insets(10, 10, 10, 10);
         gbc.anchor = GridBagConstraints.CENTER;
         add(pagarCuotasT, gbc);
 
         // Seleccionar Cliente
-        JComboBox<String> seleccionarCliente = new JComboBox<>();
-        // EJEMPLO
-        seleccionarCliente.addItem("Seleccionar Cliente");
-        seleccionarCliente.addItem("Cliente 1");
-        seleccionarCliente.addItem("Cliente 2");
-        seleccionarCliente.setSelectedIndex(0);
+        seleccionarCliente = new JComboBox<>();
+        actualizarClientes();
 
+        // EJEMPLO
         gbc.gridy = 1;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
@@ -45,6 +47,7 @@ public class VistaPago extends JPanel {
         gbc.weightx = 0.2;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         add(seleccionarArriendo, gbc);
+
         // Cuadro para seleccionar Arriendos
         // FALTA CODE
 
@@ -68,5 +71,16 @@ public class VistaPago extends JPanel {
         gbc.gridy = 99;
         gbc.weighty = 1;
         add(Box.createVerticalGlue(), gbc);
+    }
+
+    // Actualizar clientes de la lista
+    public void actualizarClientes() {
+        seleccionarCliente.removeAllItems();
+        seleccionarCliente.addItem("Seleccionar Cliente");
+
+        ArrayList<Cliente> clientes = Main.getClientes();
+        for (Cliente c : clientes) {
+            seleccionarCliente.addItem(c.getNombre());
+        }
     }
 }

@@ -1,7 +1,5 @@
 package Modelo;
 
-import java.util.ArrayList;
-
 public class Cliente {
     private String cedula;
     private String nombre;

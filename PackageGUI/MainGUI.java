@@ -7,7 +7,7 @@ public class MainGUI extends JFrame {
 
     public MainGUI() {
         setTitle("Sistema de Arriendo de Vehículos");
-        setSize(500, 400);
+        setSize(900, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
@@ -47,9 +47,6 @@ public class MainGUI extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        new MainGUI();
-    }
 //    private void calcularTotal() {
 //        try {
 //            String cliente = txtCliente.getText().trim();

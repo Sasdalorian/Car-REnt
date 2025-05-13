@@ -81,7 +81,7 @@ public class VistaClientes extends JPanel {
             if (!txtNombre.getText().trim().isEmpty() && !txtCedula.getText().trim().isEmpty()) {
 
                 Cliente nuevo = new Cliente(txtCedula.getText(), txtNombre.getText(), vigente.isSelected());
-                System.out.println("Cliente agregado:");
+                System.out.println("\nCliente agregado:");
                 System.out.println(nuevo);
 
                 //Agregar a la lista Clientes

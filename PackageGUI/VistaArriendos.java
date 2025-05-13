@@ -141,8 +141,15 @@ public class VistaArriendos extends JPanel {
         add(pagarPCuota, gbc);
         pagarPCuota.addActionListener(e -> {
             System.out.println("Cambio de Vista a Pagar");
+            seleccionarCliente.setSelectedIndex(0);
+            seleccionarVehiculo.setSelectedIndex(0);
             cardLayout.show(panelContenido, "PANEL3");
         });
+
+        // Espaciador para empujar todo arriba
+        gbc.gridy = 99;
+        gbc.weighty = 1;
+        add(Box.createVerticalGlue(), gbc);
     }
 
     // Actualizar clientes de la lista
