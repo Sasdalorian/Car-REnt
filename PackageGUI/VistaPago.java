@@ -57,22 +57,12 @@ public class VistaPago extends JPanel {
         gbc.weightx = 0.4;
         add(seleccionarArriendo, gbc);
 
-<<<<<<< HEAD
         // Botón Mostrar Cuotas
         JButton mostrarPagosArriendo = new JButton("Mostrar Pagos Arriendo Seleccionado 💃");
         gbc.gridy = 3;
         gbc.gridx = 0;
         gbc.gridwidth = 2;
         gbc.weightx = 1;
-=======
-        // Cuadro para seleccionar Arriendos
-        // FALTA CODE
-
-        // Boton Mostrar Arriendos Seleccionados
-        JButton mostrarPagosArriendo = new JButton("Mostrar Pagos Arriendo Seleccionado \uD83E\uDC83");
-        gbc.gridx = 1;
-        gbc.weightx = 0.4; // Un poco más ancho si quieres
->>>>>>> 6983a51f1ab57f80318c29afec2cef3cb326f686
         add(mostrarPagosArriendo, gbc);
 
         // Panel para mostrar cuotas como checkboxes
