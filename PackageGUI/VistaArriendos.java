@@ -6,9 +6,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class VistaArriendos extends JPanel {
-    private JTextField txtFechaArriendo;
-    private JTextField txtDias;
-    private JTextField txtCantCuotas;
+    private JTextField txtFechaArriendo, txtDias, txtCantCuotas;
+    private JTextArea areaCuotas;
     private JLabel montoPagar;
     private ArrayList<Vehiculo> vehiculos;
     private JComboBox<String> seleccionarCliente;
@@ -146,6 +145,9 @@ public class VistaArriendos extends JPanel {
                                 " cuotas.\nTotal a pagar: $" + total +
                                 " \n Valor de cuotas a pagar: $" + valorCua);
 
+//                mostrarCuotas();
+                actualizarArriendos();
+
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this,
                         "Ingrese valores numéricos válidos en días y cuotas.");
@@ -161,8 +163,21 @@ public class VistaArriendos extends JPanel {
         gbc.gridy = 2; gbc.gridx = 1;
         add(cuotasApagar, gbc);
 
+        // Cuadro para mostrar cuotas
+        areaCuotas = new JTextArea();
+        areaCuotas.setRows(9);
+        areaCuotas.setEditable(false);
+        JScrollPane areaCuotasScroll = new JScrollPane(areaCuotas);
+        gbc.gridy = 3;
+        gbc.gridx = 1;
+        gbc.gridheight = 4;               // Ocupa más filas verticalmente (puedes ajustar)
+        gbc.weighty = 1.0;                // Permite expandirse verticalmente
+        gbc.fill = GridBagConstraints.BOTH; // Se expande tanto vertical como horizontalmente
+        add(areaCuotasScroll, gbc);
+
+
         JButton pagarPCuota = new JButton("Pagar primera cuota");
-        gbc.gridx = 1; gbc.gridy = 4;
+        gbc.gridx = 1; gbc.gridy = 7;
         add(pagarPCuota, gbc);
         pagarPCuota.addActionListener(e -> {
             seleccionarCliente.setSelectedIndex(0);
@@ -190,5 +205,50 @@ public class VistaArriendos extends JPanel {
         for (Vehiculo v : vehiculos) {
             seleccionarVehiculo.addItem(v.getTipo());
         }
+    }
+
+    // Cargar Cuotas del cliente seleccionado
+    private void actualizarArriendos() {
+        areaCuotas.setText(""); // Limpiar área de texto
+
+        String clienteNombre = (String) seleccionarCliente.getSelectedItem();
+        if (clienteNombre == null || seleccionarCliente.getSelectedIndex() <= 0) {
+            areaCuotas.setText("Seleccione un cliente válido.");
+            return;
+        }
+
+        Cliente cliente = buscarClientePorNombre(clienteNombre);
+        if (cliente == null) {
+            areaCuotas.setText("Cliente no encontrado.");
+            return;
+        }
+
+        ArrayList<Arriendo> arriendos = cliente.getArriendos();
+        if (arriendos.isEmpty()) {
+            areaCuotas.setText("Este cliente no tiene arriendos registrados.");
+            return;
+        }
+
+        Arriendo arriendo = arriendos.get(arriendos.size() - 1); // Mostrar último arriendo
+        ArrayList<CuotaArriendo> cuotas = arriendo.getCuotas();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Cuotas del Arriendo N°").append(arriendo.getNumArriendo()).append(":\n\n");
+        for (CuotaArriendo cuota : cuotas) {
+            sb.append("Cuota ").append(cuota.getNumCuota())
+                    .append(" | Monto: $").append(cuota.getValorCuota())
+                    .append(" | Pagada: ").append(cuota.isPagada() ? "Sí" : "No")
+                    .append("\n");
+        }
+
+        areaCuotas.setText(sb.toString());
+    }
+    private Cliente buscarClientePorNombre(String nombre) {
+        for (Cliente c : Main.getClientes()) {
+            if (c.getNombre().equals(nombre)) {
+                return c;
+            }
+        }
+        return null;
     }
 }
