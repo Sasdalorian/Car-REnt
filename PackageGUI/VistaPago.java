@@ -105,6 +105,8 @@ public class VistaPago extends JPanel {
     }
 
 
+
+
     // Pagar cuotas de arriendos
     private ArrayList<CheckboxCuota> checkboxCuotas = new ArrayList<>();
     private ArrayList<CheckboxCuota> checkBoxesCuotas = new ArrayList<>();
@@ -155,7 +157,7 @@ public class VistaPago extends JPanel {
         }
     }
 
-    // Cargar arriendos del cliente seleccionado
+    // NUEVO: Cargar arriendos del cliente seleccionado
     private void actualizarArriendos() {
         seleccionarArriendo.removeAllItems();
         String nombreSeleccionado = (String) seleccionarCliente.getSelectedItem();
